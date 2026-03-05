@@ -298,6 +298,9 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
       <table class="ci-table" id="r-info"></table>
     </div>
   </div>
+  </div><!-- /pdf-p1 -->
+
+  <div id="pdf-p1-b">
 
   <!-- SECTION 2: VPI -->
   <div class="rep-section">
@@ -344,8 +347,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
       </div>
     </div>
   </div>
-
-  </div><!-- /pdf-p1 -->
+  </div><!-- /pdf-p1-b -->
 
   <!-- PDF PAGE 2: Symbiosis Opportunities -->
   <div id="pdf-p2">
@@ -361,11 +363,6 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
       <div style="margin-top:18px;">
         <div style="font-size:10px;font-weight:800;color:var(--g2);text-transform:uppercase;margin-bottom:8px;text-align:center;">Radar overview — Water / Energy / Materials</div>
         <div class="ch460"><canvas id="r-opp-radar"></canvas></div>
-        <div class="rl" style="margin-top:6px;">
-          <div class="rl-i"><div class="rl-d" style="background:#052B63"></div>Water</div>
-          <div class="rl-i"><div class="rl-d" style="background:#DCCA76"></div>Energy</div>
-          <div class="rl-i"><div class="rl-d" style="background:#83BB8D"></div>Materials</div>
-        </div>
       </div>
     </div>
   </div>
@@ -778,7 +775,7 @@ async function downloadPDF(){
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
     const pgW=pdf.internal.pageSize.getWidth();
-    const pageIds=['pdf-p1','pdf-p2','pdf-p3'];
+    const pageIds=['pdf-p1','pdf-p1-b','pdf-p2','pdf-p3'];
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
       const canvas=await html2canvas(el,{scale:2,useCORS:true,backgroundColor:'#EEF0F5',logging:false});

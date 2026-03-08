@@ -306,7 +306,6 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
       <table class="ci-table" id="r-info"></table>
     </div>
   </div>
-  <div class="gia-logo-bar"><img src="GreenIndustrialAreas_Logo-Standard-large.png" alt="Green Industrial Areas"></div>
   </div><!-- /pdf-p1 -->
 
   <div id="pdf-p1-b">
@@ -404,8 +403,11 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
   </div>
 
   <div class="rep-footer">
-    <span>Green Business Screening Tool — Kalundborg Symbiosis GIA</span>
-    <span>No data stored or transmitted. GDPR compliant.</span>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <span>Green Business Screening Tool — Kalundborg Symbiosis GIA</span>
+      <span>No data stored or transmitted. GDPR compliant.</span>
+    </div>
+    <img src="GreenIndustrialAreas_Logo-Standard-large.png" alt="Green Industrial Areas" style="height:64px;width:auto;">
   </div>
 
   </div><!-- /pdf-p3 -->
@@ -777,9 +779,8 @@ function rRD(){
 /* PDF DOWNLOAD */
 async function downloadPDF(){
   const btn=document.getElementById('btnPDF');
-  btn.disabled=true;btn.textContent='Generating…';
+  btn.disabled=true;btn.textContent='⏳ Generating PDF…';
   const actions=document.querySelector('.rep-actions');
-  if(actions)actions.style.visibility='hidden';
   try{
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
@@ -787,12 +788,15 @@ async function downloadPDF(){
     const pageIds=['pdf-p1','pdf-p1-b','pdf-p2','pdf-p3'];
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
+      // hide buttons only during capture of the page that contains them
+      if(actions&&el.contains(actions))actions.style.visibility='hidden';
       const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
-      const imgData=canvas.toDataURL('image/png');
+      if(actions&&el.contains(actions))actions.style.visibility='visible';
+      const imgData=canvas.toDataURL('image/jpeg',0.92);
       const imgW=pgW;
       const imgH=(canvas.height*pgW)/canvas.width;
       if(i>0)pdf.addPage();
-      pdf.addImage(imgData,'PNG',0,0,imgW,imgH,undefined,'NONE');
+      pdf.addImage(imgData,'JPEG',0,0,imgW,imgH);
     }
     const org=document.getElementById('f-org').value.trim()||'report';
     pdf.save(`green-screening-${org.replace(/\s+/g,'-').toLowerCase()}.pdf`);

@@ -18,43 +18,64 @@
 body{font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg);color:#222;font-size:14px;}
 
 /* ── WIZARD ────────────────────────────── */
-.wiz-top{background:var(--primary);padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25);}
-.wiz-brand{color:white;font-weight:700;font-size:15px;display:flex;align-items:center;gap:10px;}
-.wiz-icon{width:32px;height:32px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:white;flex-shrink:0;}
-.ans-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border-radius:20px;padding:5px 14px;color:white;font-size:12px;font-weight:600;}
-.ans-bar-bg{width:80px;height:5px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden;}
-.ans-bar-fg{height:100%;background:var(--green);border-radius:3px;transition:width .3s;}
-.step-prog{height:3px;background:rgba(5,43,99,.3);}
-.step-prog-fill{height:100%;background:var(--green);transition:width .35s;}
-.sec-status{background:var(--primary);border-top:1px solid rgba(255,255,255,.08);padding:5px 28px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
-.ss-chip{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:600;}
-.ss-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);}
+.wiz-top{
+  background:var(--primary);
+  padding:0 40px;height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+  border-bottom:3px solid var(--green);
+}
+.wiz-brand{display:flex;align-items:center;gap:14px;}
+.wiz-brand-mark{width:3px;height:38px;background:var(--green);border-radius:2px;flex-shrink:0;}
+.wiz-brand-text{display:flex;flex-direction:column;gap:1px;}
+.wiz-brand-sub{font-size:9px;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:2px;text-transform:uppercase;}
+.wiz-brand-main{font-size:17px;font-weight:700;color:white;letter-spacing:.1px;}
+.wiz-step-info{display:flex;flex-direction:column;align-items:flex-end;gap:3px;}
+.wiz-step-label{font-size:9px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:1.5px;text-transform:uppercase;}
+.wiz-step-num{font-size:20px;font-weight:800;color:white;line-height:1;letter-spacing:-.5px;}
+.step-prog{height:4px;background:rgba(5,43,99,.4);}
+.step-prog-fill{height:100%;background:var(--green);transition:width .4s cubic-bezier(.4,0,.2,1);}
+.sec-status{background:#031f4a;border-top:1px solid rgba(255,255,255,.05);padding:6px 40px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.ss-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;}
+.ss-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.15);}
 .ss-dot.done{background:var(--green);}
 .ss-dot.partial{background:var(--gold);}
-.ss-txt{color:rgba(255,255,255,.5);}.ss-txt.partial{color:rgba(255,255,255,.75);}.ss-txt.done{color:rgba(255,255,255,.95);}
-.ss-sep{color:rgba(255,255,255,.2);font-size:10px;}
+.ss-txt{color:rgba(255,255,255,.38);letter-spacing:.3px;}
+.ss-txt.partial{color:rgba(255,255,255,.65);}
+.ss-txt.done{color:rgba(255,255,255,.9);}
+.ss-sep{color:rgba(255,255,255,.15);font-size:10px;margin:0 2px;}
 
-.wiz-body{max-width:760px;margin:0 auto;padding:32px 20px 80px;}
+.wiz-body{max-width:720px;margin:0 auto;padding:40px 24px 80px;}
 .step{display:none;}.step.active{display:block;}
-.step-badge{font-size:10px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.9px;margin-bottom:5px;}
-h2{font-size:20px;font-weight:800;color:var(--primary);margin-bottom:4px;}
-.step-desc{color:var(--g1);font-size:12px;line-height:1.6;margin-bottom:24px;}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.step-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:700;color:var(--green);
+  text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;
+}
+.step-badge::before{content:'';display:block;width:18px;height:2px;background:var(--green);border-radius:1px;}
+h2{font-size:22px;font-weight:800;color:var(--primary);margin-bottom:6px;letter-spacing:-.3px;line-height:1.2;}
+.step-desc{color:var(--g2);font-size:12.5px;line-height:1.65;margin-bottom:28px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .fg{margin-bottom:14px;}
-label{display:block;font-size:10px;font-weight:800;color:var(--g1);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
-input,select{width:100%;padding:9px 12px;border:2px solid var(--g4);border-radius:7px;font-size:13px;font-family:inherit;color:#222;background:white;transition:border .15s;}
-input:focus,select:focus{outline:none;border-color:var(--primary);}
-.q-block{margin-bottom:0;padding:14px 0;border-bottom:1px solid #eaecf0;}
+label{display:block;font-size:10px;font-weight:700;color:var(--g1);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px;}
+input,select{
+  width:100%;padding:10px 14px;
+  border:1.5px solid var(--g4);border-radius:6px;
+  font-size:13px;font-family:inherit;color:#222;background:white;
+  transition:border-color .15s,box-shadow .15s;
+}
+input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(5,43,99,.08);}
+.q-block{margin-bottom:0;padding:16px 0;border-bottom:1px solid #eaecf0;}
 .q-block:last-child{border-bottom:none;}
-.q-text{font-size:13px;color:#333;margin-bottom:8px;line-height:1.45;}
-.q-btns{display:flex;gap:4px;flex-wrap:wrap;}
-.qb{padding:6px 11px;border-radius:6px;border:2px solid currentColor;background:transparent;cursor:pointer;font-size:11px;font-weight:700;transition:all .12s;line-height:1.2;}
+.q-text{font-size:13px;color:#2a2a2a;margin-bottom:10px;line-height:1.5;}
+.q-btns{display:flex;gap:5px;flex-wrap:wrap;}
+.qb{padding:7px 13px;border-radius:5px;border:1.5px solid currentColor;background:transparent;cursor:pointer;font-size:11px;font-weight:700;transition:all .12s;line-height:1.2;}
 .qb[data-v="1"]{color:var(--c1);}.qb[data-v="2"]{color:var(--c2);}.qb[data-v="3"]{color:#9a7b00;}.qb[data-v="4"]{color:#3a8a42;}.qb[data-v="5"]{color:var(--c5);}.qb[data-v="0"]{color:var(--g2);}
 .qb.on[data-v="1"]{background:var(--c1);color:white;}.qb.on[data-v="2"]{background:var(--c2);color:white;}.qb.on[data-v="3"]{background:var(--c3);color:#222;}.qb.on[data-v="4"]{background:var(--c4);color:white;}.qb.on[data-v="5"]{background:var(--c5);color:white;}.qb.on[data-v="0"]{background:var(--g2);color:white;}
-.sec-sep{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--g2);padding:16px 0 8px;border-bottom:2px solid var(--g4);margin-bottom:4px;}
-.wiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--g4);}
-.btn{padding:9px 20px;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700;transition:opacity .15s;}.btn:hover{opacity:.85;}
-.btn-primary{background:var(--primary);color:white;}.btn-green{background:var(--green);color:white;}.btn-outline{background:white;color:var(--primary);border:2px solid var(--primary);}
+.sec-sep{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--g2);padding:18px 0 8px;border-bottom:2px solid var(--g4);margin-bottom:4px;}
+.wiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:22px;border-top:1px solid var(--g4);}
+.btn{padding:10px 22px;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;letter-spacing:.2px;transition:all .15s;}.btn:hover{opacity:.87;transform:translateY(-1px);}
+.btn-primary{background:var(--primary);color:white;}.btn-green{background:var(--green);color:white;}.btn-outline{background:white;color:var(--primary);border:1.5px solid var(--primary);}
 .err{color:var(--c1);font-size:12px;}
 
 /* ══════════════════════════════════════════════════
@@ -189,16 +210,17 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 
 <div class="wiz-top">
   <div class="wiz-brand">
-    <div class="wiz-icon">GS</div>
-    Green Business Screening Tool
-  </div>
-  <div style="display:flex;align-items:center;gap:14px;">
-    <div class="ans-pill">
-      <div class="ans-bar-bg"><div class="ans-bar-fg" id="ansFg" style="width:0%"></div></div>
-      <span id="ansTxt">0 / 48</span>
+    <div class="wiz-brand-mark"></div>
+    <div class="wiz-brand-text">
+      <div class="wiz-brand-sub">Green Industrial Areas</div>
+      <div class="wiz-brand-main">Business Screening Tool</div>
     </div>
-    <span style="color:rgba(255,255,255,.6);font-size:12px;" id="stepLbl">Step 1 / 5</span>
   </div>
+  <div class="wiz-step-info">
+    <div class="wiz-step-label">Step</div>
+    <div class="wiz-step-num" id="stepLbl">1 / 5</div>
+  </div>
+
 </div>
 <div class="step-prog"><div class="step-prog-fill" id="stepFg" style="width:20%"></div></div>
 <div class="sec-status" id="secStatus"></div>
@@ -206,7 +228,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 <div class="wiz-body">
   <!-- STEP 1 -->
   <div class="step active" id="step-1">
-    <div class="step-badge">Step 1 — Organisation</div>
+    <div class="step-badge">Organisation</div>
     <h2>Tell us about your organisation</h2>
     <p class="step-desc">Basic information. Only organisation name is required.</p>
     <div class="grid-2">
@@ -229,7 +251,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 
   <!-- STEP 2: VPI -->
   <div class="step" id="step-2">
-    <div class="step-badge">Step 2 — Value Proposition Index</div>
+    <div class="step-badge">Value Proposition Index</div>
     <h2>What value propositions matter most?</h2>
     <p class="step-desc">Rate the importance of each for your enterprise's green industrial collaboration.</p>
     <div id="vpi-qs"></div>
@@ -237,7 +259,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 
   <!-- STEP 3: INTEVAL -->
   <div class="step" id="step-3">
-    <div class="step-badge">Step 3 — Internal Evaluation</div>
+    <div class="step-badge">Internal Evaluation</div>
     <h2>How significant are your resource flows?</h2>
     <p class="step-desc">Rate the significance of each resource type for your enterprise's operations.</p>
     <div id="inteval-qs"></div>
@@ -245,7 +267,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 
   <!-- STEP 4: OPP -->
   <div class="step" id="step-4">
-    <div class="step-badge">Step 4 — Opportunities</div>
+    <div class="step-badge">Opportunities</div>
     <h2>What are your symbiosis opportunities?</h2>
     <p class="step-desc">How strongly do you agree or disagree with each statement?</p>
     <div id="opp-qs"></div>
@@ -253,18 +275,18 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
 
   <!-- STEP 5: READINESS -->
   <div class="step" id="step-5">
-    <div class="step-badge">Step 5 — Readiness</div>
+    <div class="step-badge">Readiness</div>
     <h2>How ready is your enterprise for green collaboration?</h2>
     <p class="step-desc">Rate your enterprise's willingness and readiness.</p>
     <div id="readiness-qs"></div>
   </div>
 
   <div class="wiz-nav">
-    <button class="btn btn-outline" id="btnBack" onclick="prevStep()" style="visibility:hidden;">← Back</button>
+    <button class="btn btn-outline" id="btnBack" onclick="prevStep()" style="visibility:hidden;">Back</button>
     <div style="display:flex;gap:10px;align-items:center;">
       <span class="err" id="errMsg" style="display:none;"></span>
-      <button class="btn btn-primary" id="btnNext" onclick="nextStep()">Next →</button>
-      <button class="btn btn-green" id="btnFinish" onclick="showResults()" style="display:none;">View My Report →</button>
+      <button class="btn btn-primary" id="btnNext" onclick="nextStep()">Next</button>
+      <button class="btn btn-green" id="btnFinish" onclick="showResults()" style="display:none;">View My Report</button>
     </div>
   </div>
 </div>
@@ -289,10 +311,9 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
       <div class="rep-actions">
-        <button class="btn btn-rep-back" onclick="goBack()">← Edit answers</button>
-        <button class="btn btn-rep-print" id="btnPDF" onclick="downloadPDF()">⬇ Download PDF</button>
+        <button class="btn btn-rep-back" onclick="goBack()">Edit answers</button>
+        <button class="btn btn-rep-print" id="btnPDF" onclick="downloadPDF()">Download PDF</button>
       </div>
-      <div class="rep-hdr-badge" id="r-date">—</div>
     </div>
   </div>
 
@@ -543,7 +564,7 @@ function updProgress(){
 ═══════════════════════════════════════════ */
 function updNav(){
   document.getElementById('stepFg').style.width=(step/5*100)+'%';
-  document.getElementById('stepLbl').textContent=`Step ${step} / 5`;
+  document.getElementById('stepLbl').textContent=`${step} / 5`;
   document.getElementById('btnBack').style.visibility=step>1?'visible':'hidden';
   document.getElementById('btnNext').style.display=step<5?'':'none';
   document.getElementById('btnFinish').style.display=step===5?'':'none';
@@ -605,7 +626,6 @@ function renderReport(){
   document.getElementById('r-org').textContent=org;
   document.getElementById('r-meta').textContent=[ind,city,country].filter(Boolean).join('  ·  ');
   const now=new Date();
-  document.getElementById('r-date').textContent=now.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
   rScores();rInfo();rVPI();rIE();rOpp();rRD();
 }
 

@@ -403,15 +403,22 @@ input:focus,select:focus{outline:none;border-color:var(--primary);}
   </div>
 
   <div class="rep-footer">
-    <div style="display:flex;flex-direction:column;gap:2px;">
-      <span>Green Business Screening Tool — Kalundborg Symbiosis GIA</span>
-      <span>No data stored or transmitted. GDPR compliant.</span>
-    </div>
-    <img src="GreenIndustrialAreas_Logo-Standard-large.png" alt="Green Industrial Areas" style="height:64px;width:auto;">
+    <span>Green Business Screening Tool — Kalundborg Symbiosis GIA</span>
+    <span>No data stored or transmitted. GDPR compliant.</span>
+  </div>
+  <!-- PDF-only logo: hidden on screen, shown during PDF capture -->
+  <div class="gia-logo-wiz" id="pdf-logo" style="display:none;">
+    <img src="GreenIndustrialAreas_Logo-Standard-large.png" alt="Green Industrial Areas">
   </div>
 
   </div><!-- /pdf-p3 -->
 </div><!-- .report -->
+
+<!-- Screen-only logo: full-width band outside report box, hidden during PDF capture -->
+<div class="gia-logo-wiz" id="screen-logo">
+  <img src="GreenIndustrialAreas_Logo-Standard.svg" alt="Green Industrial Areas">
+</div>
+
 </div><!-- #results -->
 
 <script>
@@ -781,6 +788,11 @@ async function downloadPDF(){
   const btn=document.getElementById('btnPDF');
   btn.disabled=true;btn.textContent='⏳ Generating PDF…';
   const actions=document.querySelector('.rep-actions');
+  const pdfLogo=document.getElementById('pdf-logo');
+  const screenLogo=document.getElementById('screen-logo');
+  // swap logos: show PDF version, hide screen version
+  if(pdfLogo)pdfLogo.style.display='';
+  if(screenLogo)screenLogo.style.display='none';
   try{
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
@@ -788,7 +800,6 @@ async function downloadPDF(){
     const pageIds=['pdf-p1','pdf-p1-b','pdf-p2','pdf-p3'];
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
-      // hide buttons only during capture of the page that contains them
       if(actions&&el.contains(actions))actions.style.visibility='hidden';
       const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
       if(actions&&el.contains(actions))actions.style.visibility='visible';
@@ -801,6 +812,8 @@ async function downloadPDF(){
     const org=document.getElementById('f-org').value.trim()||'report';
     pdf.save(`green-screening-${org.replace(/\s+/g,'-').toLowerCase()}.pdf`);
   }finally{
+    if(pdfLogo)pdfLogo.style.display='none';
+    if(screenLogo)screenLogo.style.display='';
     if(actions)actions.style.visibility='visible';
     btn.disabled=false;btn.textContent='⬇ Download PDF';
   }

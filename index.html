@@ -423,7 +423,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       <div class="rep-hdr-title">Industrial Symbiosis Readiness Report</div>
       <div class="rep-hdr-org" id="r-org">—</div>
       <div class="rep-hdr-meta" id="r-meta">—</div>
-      <button class="btn-rep-new" onclick="newScreening()">New screening</button>
+      <button class="btn-rep-new" id="btnNewScreening" onclick="newScreening()">New screening</button>
     </div>
     <div class="rep-actions">
       <button class="btn btn-rep-back" onclick="goBack()">Edit answers</button>
@@ -919,6 +919,7 @@ async function downloadPDF(){
   const btn=document.getElementById('btnPDF');
   btn.disabled=true;btn.textContent='Generating PDF…';
   const actions=document.querySelector('.rep-actions');
+  const btnNew=document.getElementById('btnNewScreening');
   const pdfLogo=document.getElementById('pdf-logo');
   const screenLogo=document.getElementById('screen-logo');
   // swap logos: show PDF version, hide screen version
@@ -933,8 +934,10 @@ async function downloadPDF(){
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
       if(actions&&el.contains(actions))actions.style.visibility='hidden';
+      if(btnNew&&el.contains(btnNew))btnNew.style.visibility='hidden';
       const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
       if(actions&&el.contains(actions))actions.style.visibility='visible';
+      if(btnNew&&el.contains(btnNew))btnNew.style.visibility='visible';
       const imgData=canvas.toDataURL('image/jpeg',0.92);
       const imgW=pgW;
       const imgH=(canvas.height*pgW)/canvas.width;

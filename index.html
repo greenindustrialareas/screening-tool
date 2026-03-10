@@ -113,7 +113,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;
   padding:5px 12px;border-radius:20px;flex-shrink:0;margin-left:16px;margin-top:4px;
 }
-.rep-actions{display:flex;gap:8px;flex-shrink:0;margin-left:20px;margin-top:2px;}
+.rep-actions{display:flex;flex-direction:column;gap:6px;flex-shrink:0;margin-left:20px;margin-top:2px;}
 .btn-rep-back{background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.3);padding:7px 14px;font-size:12px;}
 .btn-rep-print{background:var(--gold);color:var(--primary);padding:7px 16px;font-size:12px;font-weight:700;}
 
@@ -251,6 +251,15 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .contacts-cta{text-align:center;padding:4px 0 32px;display:flex;flex-direction:column;align-items:center;gap:10px;}
 .btn-contacts-skip{background:none;border:none;font-size:12px;color:var(--g2);cursor:pointer;padding:4px 8px;font-family:inherit;}
 .btn-contacts-skip:hover{color:var(--g1);}
+
+/* ── MAIL MODAL ── */
+.mail-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;}
+.mail-modal{background:white;border-radius:12px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.18);}
+.mail-modal-head{padding:22px 24px 16px;border-bottom:1px solid #e8eaf0;}
+.mail-modal-title{font-size:17px;font-weight:800;color:var(--primary);margin-bottom:4px;}
+.mail-modal-sub{font-size:12.5px;color:var(--g2);line-height:1.55;}
+.mail-modal-body{padding:16px 24px;}
+.mail-modal-foot{padding:14px 24px;border-top:1px solid #e8eaf0;display:flex;justify-content:flex-end;gap:10px;}
 
 @media (max-width: 680px) {
   .rep-2col, .grid-2, .landing-cards, .contacts-grid { grid-template-columns: 1fr; }
@@ -517,11 +526,14 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       <div class="rep-hdr-title">Industrial Symbiosis Readiness Report</div>
       <div class="rep-hdr-org" id="r-org">—</div>
       <div class="rep-hdr-meta" id="r-meta">—</div>
-      <button class="btn-rep-new" id="btnNewScreening" onclick="newScreening()">New screening</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn-rep-new" id="btnNewScreening" onclick="newScreening()">New screening</button>
+        <button class="btn-rep-new" onclick="goBack()">Edit answers</button>
+      </div>
     </div>
     <div class="rep-actions">
-      <button class="btn btn-rep-back" onclick="goBack()">Edit answers</button>
       <button class="btn btn-rep-print" id="btnPDF" onclick="downloadPDF()">Download PDF</button>
+      <button class="btn btn-rep-print" id="btnMailPDF" onclick="openMailModal()">Mail PDF</button>
     </div>
   </div>
 
@@ -1177,6 +1189,15 @@ function newScreening(){
 /* INIT */
 window.addEventListener('DOMContentLoaded',()=>{
   buildAll();
+  // Build mail modal contacts grid
+  const mailGrid=document.getElementById('mailContactsGrid');
+  if(mailGrid){
+    mailGrid.innerHTML=CONTACTS.map(c=>`
+      <div class="contact-card" id="mcc-${c.id}" onclick="toggleMailContact(${c.id})">
+        <div class="contact-check"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="contact-name">${c.name}</div><div class="contact-country">${c.country}</div></div>
+      </div>`).join('');
+  }
   loadFromStorage();
   updProgress();updNav();
   // Save on every form field change
@@ -1185,6 +1206,61 @@ window.addEventListener('DOMContentLoaded',()=>{
     document.getElementById(id)?.addEventListener('change',saveToStorage);
   });
 });
+
+/* ── MAIL MODAL JS ── */
+function openMailModal(){
+  // sync modal cards with current selectedContacts
+  CONTACTS.forEach(c=>{
+    const el=document.getElementById('mcc-'+c.id);
+    if(el)el.classList.toggle('selected',selectedContacts.has(c.id));
+  });
+  document.getElementById('mailModal').style.display='flex';
+}
+function closeMailModal(){
+  document.getElementById('mailModal').style.display='none';
+}
+function toggleMailContact(id){
+  selectedContacts.has(id)?selectedContacts.delete(id):selectedContacts.add(id);
+  // sync both contact grids
+  const mc=document.getElementById('mcc-'+id);
+  if(mc)mc.classList.toggle('selected',selectedContacts.has(id));
+  const cc=document.getElementById('cc-'+id);
+  if(cc)cc.classList.toggle('selected',selectedContacts.has(id));
+  saveToStorage();
+}
+function sendMailPDF(){
+  const recipients=[...selectedContacts].map(id=>CONTACTS.find(c=>c.id===id)?.email).filter(Boolean);
+  if(!recipients.length){alert('Please select at least one partner.');return;}
+  const org=document.getElementById('f-org').value.trim();
+  const subject=encodeURIComponent('Screening tool for industrial symbiosis readiness'+(org?' — '+org:''));
+  const body=encodeURIComponent(
+    'PLEASE NOTE: THE PDF REPORT NEEDS TO BE ATTACHED MANUALLY TO THIS EMAIL.\n\n'+
+    'Dear partner,\n\n'+
+    'I am reaching out to share the results of our industrial symbiosis readiness assessment'+(org?' for '+org:'')+', completed using the GreenIndustrialAreas Screening Tool.\n\n'+
+    'We would welcome the opportunity to discuss the findings and explore potential next steps towards industrial symbiosis.\n\n'+
+    'Best regards'
+  );
+  window.location.href=`mailto:${recipients.join(';')}?subject=${subject}&body=${body}`;
+  closeMailModal();
+}
 </script>
+
+<!-- MAIL MODAL -->
+<div id="mailModal" class="mail-modal-overlay" style="display:none;" onclick="if(event.target===this)closeMailModal()">
+  <div class="mail-modal">
+    <div class="mail-modal-head">
+      <div class="mail-modal-title">Send report by email</div>
+      <div class="mail-modal-sub">Select the project partners you'd like to email your report to. Your email client will open with the recipients pre-filled. Please attach the PDF manually.</div>
+    </div>
+    <div class="mail-modal-body">
+      <div class="contacts-grid" id="mailContactsGrid"></div>
+    </div>
+    <div class="mail-modal-foot">
+      <button class="btn btn-outline" onclick="closeMailModal()">Cancel</button>
+      <button class="btn btn-green" onclick="sendMailPDF()">Open email client</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

@@ -348,12 +348,12 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <button class="btn-wiz-new" onclick="newScreening()">New screening</button>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
-    <button class="btn-wiz-new" onclick="continueToScreening()">Skip</button>
-    <div class="wiz-brand-divider"></div>
     <div class="wiz-step-info">
       <div class="wiz-step-label">Step</div>
       <div class="wiz-step-num">0 / 5</div>
     </div>
+    <div class="wiz-brand-divider"></div>
+    <button class="btn-wiz-new" onclick="continueToScreening()">Skip</button>
   </div>
 </div>
 <div class="step-prog"><div class="step-prog-fill" style="width:0%"></div></div>
@@ -361,7 +361,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 <div class="contacts-body">
   <div class="contacts-hero">
     <h2 class="contacts-hero-title">Share your report with a project partner</h2>
-    <p class="contacts-hero-sub">Select one or more GreenIndustrialAreas project partners you'd like to share your completed assessment with. You can also proceed without selecting anyone.</p>
+    <p class="contacts-hero-sub">Select one or more GreenIndustrialAreas project partners you'd like to share your completed assessment with. You can also proceed without selecting anyone. You can change this selection at the end of the screening.</p>
   </div>
 
   <div class="contacts-grid">
@@ -421,12 +421,14 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
     <button class="btn-wiz-new" onclick="newScreening()">New screening</button>
   </div>
   <div style="display:flex;align-items:center;gap:12px;">
-    <button class="btn-wiz-new" onclick="nextStep()" id="btnSkip">Skip</button>
+    <button class="btn-wiz-new" id="btnPrev">Previous step</button>
     <div class="wiz-brand-divider"></div>
     <div class="wiz-step-info">
       <div class="wiz-step-label">Step</div>
       <div class="wiz-step-num" id="stepLbl">1 / 5</div>
     </div>
+    <div class="wiz-brand-divider"></div>
+    <button class="btn-wiz-new" id="btnSkip">Skip</button>
   </div>
 
 </div>
@@ -772,6 +774,8 @@ function updNav(){
   const btnBack=document.getElementById('btnBack');
   btnBack.style.visibility='visible';
   btnBack.onclick=step>1?prevStep:goToContacts;
+  const btnPrev=document.getElementById('btnPrev');
+  btnPrev.onclick=step>1?prevStep:goToContacts;
   document.getElementById('btnNext').style.display=step<5?'':'none';
   document.getElementById('btnFinish').style.display=step===5?'':'none';
   const skip=document.getElementById('btnSkip');
@@ -1063,7 +1067,8 @@ function saveToStorage(){
         city:document.getElementById('f-city').value,
         country:document.getElementById('f-country').value
       },
-      ans:JSON.parse(JSON.stringify(ans))
+      ans:JSON.parse(JSON.stringify(ans)),
+      contacts:[...selectedContacts]
     };
     localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
   }catch(e){}
@@ -1093,6 +1098,13 @@ function loadFromStorage(){
         });
       });
     }
+    if(Array.isArray(data.contacts)){
+      data.contacts.forEach(id=>{
+        selectedContacts.add(id);
+        const el=document.getElementById('cc-'+id);
+        if(el)el.classList.add('selected');
+      });
+    }
   }catch(e){}
 }
 
@@ -1110,6 +1122,7 @@ let selectedContacts=new Set();
 function toggleContact(id){
   selectedContacts.has(id)?selectedContacts.delete(id):selectedContacts.add(id);
   document.getElementById('cc-'+id).classList.toggle('selected',selectedContacts.has(id));
+  saveToStorage();
 }
 
 function startScreening(){

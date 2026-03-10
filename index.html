@@ -362,7 +362,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       <div class="wiz-step-num">0 / 5</div>
     </div>
     <div class="wiz-brand-divider"></div>
-    <button class="btn-wiz-new" onclick="continueToScreening()">Skip</button>
+    <button class="btn-wiz-new" onclick="continueToScreening()">Skip / Next step</button>
   </div>
 </div>
 <div class="step-prog"><div class="step-prog-fill" style="width:0%"></div></div>
@@ -437,7 +437,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       <div class="wiz-step-num" id="stepLbl">1 / 5</div>
     </div>
     <div class="wiz-brand-divider"></div>
-    <button class="btn-wiz-new" id="btnSkip">Skip</button>
+    <button class="btn-wiz-new" id="btnSkip">Skip / Next step</button>
   </div>
 
 </div>
@@ -1232,11 +1232,11 @@ function sendMailPDF(){
   const recipients=[...selectedContacts].map(id=>CONTACTS.find(c=>c.id===id)?.email).filter(Boolean);
   if(!recipients.length){alert('Please select at least one partner.');return;}
   const org=document.getElementById('f-org').value.trim();
-  const subject=encodeURIComponent('Screening tool for industrial symbiosis readiness'+(org?' — '+org:''));
+  const subject=encodeURIComponent('Industrial symbiosis readiness');
   const body=encodeURIComponent(
     'PLEASE NOTE: THE PDF REPORT NEEDS TO BE ATTACHED MANUALLY TO THIS EMAIL.\n\n'+
     'Dear partner,\n\n'+
-    'I am reaching out to share the results of our industrial symbiosis readiness assessment'+(org?' for '+org:'')+', completed using the GreenIndustrialAreas Screening Tool.\n\n'+
+    'I am reaching out to share the results of our industrial symbiosis readiness assessment, completed using the GreenIndustrialAreas Screening Tool.\n\n'+
     'We would welcome the opportunity to discuss the findings and explore potential next steps towards industrial symbiosis.\n\n'+
     'Best regards'
   );

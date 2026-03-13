@@ -1049,6 +1049,9 @@ async function downloadPDF(){
   if(pdfLogo)pdfLogo.style.display='';
   if(screenLogo)screenLogo.style.display='none';
   document.body.classList.add('pdf-mode');
+  // Boost chart resolution for PDF capture
+  const chartDpr=4;
+  Object.values(charts).forEach(c=>{c.options.devicePixelRatio=chartDpr;c.resize();});
   try{
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
@@ -1070,6 +1073,8 @@ async function downloadPDF(){
     const org=document.getElementById('f-org').value.trim()||'report';
     pdf.save(`green-screening-${org.replace(/\s+/g,'-').toLowerCase()}.pdf`);
   }finally{
+    // Restore chart resolution
+    Object.values(charts).forEach(c=>{c.options.devicePixelRatio=window.devicePixelRatio||1;c.resize();});
     document.body.classList.remove('pdf-mode');
     if(pdfLogo)pdfLogo.style.display='none';
     if(screenLogo)screenLogo.style.display='';

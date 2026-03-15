@@ -155,10 +155,10 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .bar-row:last-child{border-bottom:none;}
 .bar-lbl{font-size:11px;color:#444;width:195px;flex-shrink:0;line-height:1.3;}
 .bar-lbl-sm{font-size:11px;color:#444;flex:1;line-height:1.3;}
-.bar-track{flex:1;height:12px;background:#eee;border-radius:3px;overflow:hidden;}
-.bar-track-sm{width:90px;flex-shrink:0;height:12px;background:#eee;border-radius:3px;overflow:hidden;}
+.bar-track{width:65px;flex-shrink:0;height:12px;background:#eee;border-radius:3px;overflow:hidden;}
+.bar-track-sm{width:65px;flex-shrink:0;height:12px;background:#eee;border-radius:3px;overflow:hidden;}
 .bar-fill{height:100%;border-radius:3px;transition:width .4s;}
-.bar-tag{font-size:10px;color:var(--g1);width:88px;flex-shrink:0;text-align:right;line-height:1.2;}
+.bar-tag{font-size:10px;color:var(--g1);width:100px;flex-shrink:0;text-align:right;line-height:1.2;white-space:nowrap;}
 
 /* ── GAUGE ── */
 .gauge-wrap{position:relative;}
@@ -576,7 +576,6 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
               <div class="gauge-sub">out of 75</div>
             </div>
           </div>
-          <div id="r-vpi-top3" style="margin-top:12px;"></div>
         </div>
       </div>
     </div>
@@ -619,6 +618,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
         <span id="r-opp-completion"></span>
         <div class="completion-track"><div class="completion-fill" id="r-opp-cbar"></div></div>
       </div>
+      <div id="r-opp-warn" style="display:none;font-size:11px;color:#b45309;margin-top:6px;margin-bottom:14px;">Not all questions in this section have been answered - the diagram may not be complete.</div>
       <div id="r-opp-cats"></div>
       <div style="margin-top:18px;">
         <div style="font-size:10px;font-weight:800;color:var(--g2);text-transform:uppercase;margin-bottom:8px;text-align:center;">Radar overview — Water / Energy / Materials</div>
@@ -930,15 +930,6 @@ function rVPI(){
     options:{rotation:-90,circumference:360,responsive:true,maintainAspectRatio:false,cutout:'72%',plugins:{legend:{display:false},tooltip:{enabled:false}}}
   });
 
-  // top 3
-  const sorted=[...vals.map((v,i)=>({v,q:VPI_Q[i]}))].filter(x=>x.v>0).sort((a,b)=>b.v-a.v).slice(0,3);
-  document.getElementById('r-vpi-top3').innerHTML=sorted.length?`
-    <div style="font-size:10px;font-weight:800;color:var(--g2);text-transform:uppercase;margin-bottom:6px;">Top rated dimensions</div>
-    ${sorted.map(x=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
-      <div style="width:8px;height:8px;border-radius:50%;background:${col(x.v)};flex-shrink:0;"></div>
-      <span style="font-size:11px;color:#333;flex:1;">${x.q}</span>
-      <span style="font-size:11px;font-weight:700;color:${col(x.v)}">${lbl(x.v,VPI_L,VPI_V)}</span>
-    </div>`).join('')}`:'';
 }
 
 /* ── INTERNAL EVAL ── */
@@ -983,6 +974,7 @@ function rOpp(){
   const pct=Math.round(cnt/18*100);
   document.getElementById('r-opp-completion').textContent=`${cnt} / 18 questions answered`;
   document.getElementById('r-opp-cbar').style.width=pct+'%';
+  document.getElementById('r-opp-warn').style.display=cnt<18?'':'none';
 
   const catDefs=[
     {label:'Water',    color:'#052B63', vals:wV},
@@ -1002,9 +994,9 @@ function rOpp(){
   charts['r-opp-radar']=new Chart(document.getElementById('r-opp-radar').getContext('2d'),{
     type:'radar',
     data:{labels:OPP_S,datasets:[
-      {label:'Water',    data:wV,borderColor:'#052B63',backgroundColor:'rgba(5,43,99,.08)',    pointBackgroundColor:'#052B63',pointStyle:'circle',  borderWidth:2.5,pointRadius:5,borderDash:[]},
-      {label:'Energy',   data:eV,borderColor:'#B8960A',backgroundColor:'rgba(184,150,10,.1)',  pointBackgroundColor:'#B8960A',pointStyle:'triangle',borderWidth:2.5,pointRadius:6,borderDash:[6,3]},
-      {label:'Materials',data:mV,borderColor:'#3A8A47',backgroundColor:'rgba(58,138,71,.1)',   pointBackgroundColor:'#3A8A47',pointStyle:'rect',    borderWidth:2.5,pointRadius:5,borderDash:[3,3]}
+      {label:'Water',    data:wV,borderColor:'#052B63',backgroundColor:'rgba(5,43,99,.08)',    pointBackgroundColor:'#052B63',pointStyle:'circle',  borderWidth:5,  pointRadius:3, borderDash:[]},
+      {label:'Energy',   data:eV,borderColor:'#B8960A',backgroundColor:'rgba(184,150,10,.1)',  pointBackgroundColor:'#B8960A',pointStyle:'triangle',borderWidth:3,  pointRadius:6, borderDash:[6,3]},
+      {label:'Materials',data:mV,borderColor:'#3A8A47',backgroundColor:'rgba(58,138,71,.1)',   pointBackgroundColor:'#3A8A47',pointStyle:'rect',    borderWidth:1.5,pointRadius:8, borderDash:[3,3]}
     ]},
     options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:30,bottom:30,left:40,right:40}},
       plugins:{legend:{display:true,position:'bottom',labels:{usePointStyle:true,font:{size:11},padding:16}}},

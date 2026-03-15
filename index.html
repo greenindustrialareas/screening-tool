@@ -639,6 +639,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
         <span id="r-rd-completion"></span>
         <div class="completion-track"><div class="completion-fill" id="r-rd-cbar"></div></div>
       </div>
+      <div id="r-rd-warn" style="display:none;font-size:11px;color:#b45309;margin-top:6px;margin-bottom:14px;">Not all questions in this section have been answered - the diagram may not be complete.</div>
       <div id="r-rd-bars"></div>
       <div style="margin-top:16px;">
         <div style="font-size:10px;font-weight:800;color:var(--g2);text-transform:uppercase;margin-bottom:8px;text-align:center;">Readiness Overview</div>
@@ -647,7 +648,7 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
       <div class="scale-legend" style="margin-top:12px;">
         <div class="sl-item"><div class="sl-dot" style="background:var(--c1)"></div>1 Strongly Disagree</div>
         <div class="sl-item"><div class="sl-dot" style="background:var(--c2)"></div>2 Somewhat Disagree</div>
-        <div class="sl-item"><div class="sl-dot" style="background:var(--c3)"></div>3 Neutral</div>
+        <div class="sl-item"><div class="sl-dot" style="background:var(--c3)"></div>3 Neither / Don't know</div>
         <div class="sl-item"><div class="sl-dot" style="background:var(--c4)"></div>4 Somewhat Agree</div>
         <div class="sl-item"><div class="sl-dot" style="background:var(--c5)"></div>5 Strongly Agree</div>
       </div>
@@ -731,6 +732,7 @@ const SIG_L=['Very Low','Low','Neutral','High','Very High'];
 const SIG_V=[1,2,3,4,5];
 const AGR_L=['Strongly Disagree','Somewhat Disagree','Neither','Somewhat Agree','Strongly Agree'];
 const AGR_V=[1,2,3,4,5];
+const RD_L=['Strongly Disagree','Somewhat Disagree','Neither / Don\'t know','Somewhat Agree','Strongly Agree'];
 
 /* ═══════════════════════════════════════════
    STATE
@@ -776,7 +778,7 @@ function buildAll(){
     OPP_Q.forEach((q,i)=>makeQ(q.replace(/{c}/g,cat.toLowerCase()),'opp',cat+'_'+i,AGR_L,AGR_V,oc));
   });
   const rc=document.getElementById('readiness-qs');
-  RD_Q.forEach((q,i)=>makeQ(q,'rd',i,AGR_L,AGR_V,rc));
+  RD_Q.forEach((q,i)=>makeQ(q,'rd',i,RD_L,AGR_V,rc));
 }
 
 /* ═══════════════════════════════════════════
@@ -1012,11 +1014,12 @@ function rRD(){
   const pct=Math.round(cnt/8*100);
   document.getElementById('r-rd-completion').textContent=`${cnt} / 8 questions answered`;
   document.getElementById('r-rd-cbar').style.width=pct+'%';
+  document.getElementById('r-rd-warn').style.display=cnt<8?'':'none';
 
   RD_Q.forEach((_,i)=>{
     const v=vals[i];const pct2=v?(v/5)*100:0;
     const row=document.createElement('div');row.className='bar-row';
-    row.innerHTML=`<div class="bar-lbl-sm">${RD_S[i]}</div><div class="bar-track-sm"><div class="bar-fill" style="width:${pct2}%;background:${col(v)}"></div></div><div class="bar-tag">${v?AGR_L[AGR_V.indexOf(v)]:'—'}</div>`;
+    row.innerHTML=`<div class="bar-lbl-sm">${RD_S[i]}</div><div class="bar-track-sm"><div class="bar-fill" style="width:${pct2}%;background:${col(v)}"></div></div><div class="bar-tag">${v?RD_L[AGR_V.indexOf(v)]:'—'}</div>`;
     el.appendChild(row);
   });
 

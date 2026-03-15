@@ -1006,7 +1006,7 @@ function rOpp(){
       {label:'Materials',data:mV,borderColor:'#3A8A47',backgroundColor:'rgba(58,138,71,.1)',   pointBackgroundColor:'#3A8A47',pointStyle:'rect',    borderWidth:1.5,pointRadius:8, borderDash:[3,3]}
     ]},
     options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:30,bottom:30,left:40,right:40}},
-      plugins:{legend:{display:true,position:'bottom',labels:{usePointStyle:true,font:{size:11},padding:16}},
+      plugins:{legend:{display:true,position:'bottom',labels:{usePointStyle:true,boxWidth:8,boxHeight:8,font:{size:11},padding:16}},
         tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+(AGR_L[ctx.raw-1]||'')}},
         radarOffsetTicks:{angle:-Math.PI/3}},
       scales:{r:{min:0,max:5,ticks:{display:false,stepSize:1},pointLabels:{font:{size:10}},grid:{color:'#eee'},angleLines:{color:'#eee'}}}}

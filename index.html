@@ -213,17 +213,15 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
   border-bottom:3px solid var(--green);
   position:sticky;top:0;z-index:100;
 }
-.landing-body{max-width:760px;margin:0 auto;padding:36px 24px 0;}
-.landing-hero{text-align:center;padding:28px 0 24px;}
-.landing-hero-title{font-size:26px;font-weight:800;color:var(--primary);margin-bottom:8px;letter-spacing:-.4px;line-height:1.2;}
-.landing-hero-sub{font-size:13px;color:var(--g2);line-height:1.6;max-width:520px;margin:0 auto;}
-.landing-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.landing-card{background:white;border-radius:10px;padding:20px 22px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-top:3px solid var(--green);}
-.landing-card-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--primary);margin-bottom:9px;}
-.landing-card-text{font-size:13px;color:var(--g1);line-height:1.65;}
-.landing-card-text a{color:var(--primary);font-weight:700;text-decoration:none;border-bottom:1px solid var(--green);}
-.landing-card-text a:hover{color:#073a80;}
-.landing-cta{text-align:center;padding:24px 0 28px;}
+.landing-body{max-width:760px;margin:0 auto;padding:40px 32px 0;}
+.landing-intro-title{font-size:18px;font-weight:800;color:var(--primary);margin-bottom:28px;letter-spacing:-.2px;line-height:1.3;border-bottom:2px solid var(--green);padding-bottom:14px;}
+.landing-intro p{font-size:13.5px;color:#2a2e3a;line-height:1.82;margin-bottom:18px;}
+.landing-intro p a{color:var(--primary);text-decoration:none;border-bottom:1px solid var(--green);}
+.landing-intro p a:hover{color:#073a80;}
+.landing-intro h4{font-size:11px;font-weight:800;color:var(--primary);margin:22px 0 6px;text-transform:uppercase;letter-spacing:.7px;}
+.landing-intro ul{margin:0 0 18px 20px;padding:0;font-size:13.5px;color:#2a2e3a;line-height:1.82;}
+.landing-intro ul li{margin-bottom:4px;}
+.landing-cta{text-align:center;padding:28px 0 36px;}
 .btn-landing-start{background:var(--primary);color:white;padding:13px 48px;border:none;border-radius:7px;font-size:15px;font-weight:800;cursor:pointer;letter-spacing:.2px;transition:all .15s;}
 .btn-landing-start:hover{background:#073a80;transform:translateY(-2px);box-shadow:0 4px 18px rgba(5,43,99,.28);}
 .landing-privacy{background:#F7F8FC;border-top:1px solid #e8eaf0;padding:18px 24px;max-width:760px;margin:0 auto;}
@@ -232,6 +230,9 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 .landing-privacy-text,.landing-imprint-text{font-size:11px;color:var(--g2);line-height:1.8;}
 .landing-privacy-text a,.landing-imprint-text a{color:var(--g1);text-decoration:none;border-bottom:1px solid var(--g4);}
 .landing-privacy-text a:hover,.landing-imprint-text a:hover{color:#222;}
+.landing-privacy-text h4{font-size:11px;font-weight:800;color:var(--g1);margin:14px 0 5px;text-transform:uppercase;letter-spacing:.5px;}
+.landing-privacy-text ul{margin:4px 0 8px 16px;padding:0;}
+.landing-privacy-text ul li{margin-bottom:3px;}
 
 /* ── CONTACTS PAGE ── */
 .contacts-body{max-width:760px;margin:0 auto;padding:36px 24px 0;}
@@ -287,18 +288,13 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 
 <div class="landing-body">
 
-  <div class="landing-hero">
-    <h2 class="landing-hero-title">Screening tool for industrial symbiosis readiness</h2>
-    <p class="landing-hero-sub">A self-assessment for businesses exploring industrial symbiosis and resource collaboration. Takes 10–15 minutes, no account required. You'll receive a downloadable PDF report.</p>
-  </div>
-
-  <div style="display:flex;justify-content:center;margin-bottom:14px;">
-    <div class="landing-card" style="width:360px;">
-      <div class="landing-card-title">What to Prepare</div>
-      <div class="landing-card-text">
-        Have a general sense of your energy, water and material flows and your organisation's green priorities.
-      </div>
-    </div>
+  <div class="landing-intro">
+    <h2 class="landing-intro-title">Screening Tool for Industrial Symbiosis Readiness</h2>
+    <p>Thank you very much for your interest in the Screening tool that has been elaborated in the Interreg BSR project <a href="https://interreg-baltic.eu/project/greenindustrialareas/" target="_blank" rel="noopener">GreenIndustrialAreas</a>. While this browser-based version of the tool offers a first glimpse of the tool and the production of a chart-driven report, for further investigation of potentials for industrial symbiosis we recommend the installation of the full kit, ideally through an intermediary that follows up on the results.</p>
+    <p>Use of the Screening tool requires no more than 10 minutes if all information is already at hand. For a more thorough analysis, we suggest setting aside at least 60 minutes. In the process, users are asked to answer a few general propositions on how the entity is prepared for industrial symbiosis. This is followed by questions about the resources used and their importance. Two sets of questions need to be answered through preselected options to rate opportunities for industrial symbiosis and general readiness.</p>
+    <p>This site is established to demonstrate the use of the Screening tool. As the tool is run in your browser, no data is collected or saved. At the end of the process, you have the possibility to create a PDF report based on the information you entered. If you select to receive follow-up support from one of the members of the project consortium, an email link will appear at the end of the process to send the PDF report through your email client.</p>
+    <p>For a full privacy notice, please click <a href="#" onclick="showPrivacy();return false;">here</a>.</p>
+    <p>For all further information regarding the GreenIndustrialAreas project and the concept of industrial symbiosis, please <a href="https://interreg-baltic.eu/project/greenindustrialareas/" target="_blank" rel="noopener">visit</a> the website of the project or browse the webpages of its partners.</p>
   </div>
 
   <div class="landing-cta">
@@ -307,34 +303,15 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 
 </div><!-- /landing-body -->
 
-<!-- About -->
-<div class="landing-imprint">
-  <div class="landing-imprint-title">About</div>
-  <div class="landing-imprint-text">
-    Part of the <a href="https://interreg-baltic.eu/project/greenindustrialareas/" target="_blank" rel="noopener">GreenIndustrialAreas</a> Interreg Baltic Sea Region project, developed by <strong>Kalundborg Symbiosis</strong>.
-  </div>
-</div>
-
-<!-- Privacy -->
-<div class="landing-privacy">
-  <div class="landing-privacy-title">Privacy &amp; Data Protection</div>
-  <div class="landing-privacy-text">
-    <strong>GDPR compliant.</strong> This tool runs entirely in your browser — no answers, scores, or personal data are ever transmitted to any server or third party.
-    Your responses are saved only to your browser's localStorage so you can return to the questionnaire; this data never leaves your device.
-    Hosted on <strong>GitHub Pages</strong>. GitHub may collect standard server access logs as per their
-    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">privacy statement</a>, but no additional tracking or analytics are applied by this tool.
-  </div>
-</div>
-
 <!-- Imprint -->
 <div class="landing-imprint">
   <div class="landing-imprint-title">Imprint</div>
   <div class="landing-imprint-text">
-    <strong>Responsible for content:</strong> Kalundborg Symbiosis · Campus Kalundborg 3 · DK-4400 Kalundborg · Denmark ·
-    <a href="https://www.symbiosis.dk/en/" target="_blank" rel="noopener">www.symbiosis.dk</a><br>
-    <strong>Project:</strong> GreenIndustrialAreas — co-funded by the European Union through the Interreg Baltic Sea Region Programme 2021–2027.
-    The views expressed are those of the project partners and do not necessarily reflect the position of the European Union.<br>
-    <strong>Hosting:</strong> GitHub Pages (Microsoft GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA).
+    Interreg BSR Project <a href="https://interreg-baltic.eu/project/greenindustrialareas/" target="_blank" rel="noopener">GreenIndustrialAreas</a><br><br>
+    <strong>Lead Partner:</strong> Ministry of Economy, Infrastructure, Tourism and Labour Mecklenburg-Vorpommern, Johannes-Stelling-Straße 14, 19053 Schwerin, Germany, E-Mail: <a href="mailto:gruene.gewerbegebiete@wm.mv-regierung.de">gruene.gewerbegebiete@wm.mv-regierung.de</a><br><br>
+    <strong>Responsible for content</strong> (according to German Press Law): Frank Trepte, core-consult GmbH &amp; Co. KG, Melanchthonstraße 7, 01099 Dresden, <a href="http://core-consult.de/" target="_blank" rel="noopener">core-consult.de</a><br><br>
+    The Github page solution has been developed by <a href="https://www.linkedin.com/in/jakub-vysmek/" target="_blank" rel="noopener">Jakub Výsmek</a> (technical lead) and Anja Hagedorn (technical concept) based on data provided by Kalundborg Symbiosis as a partner of the GreenIndustrialAreas project.<br><br>
+    <a href="#" onclick="showPrivacy();return false;">Privacy Notice</a>
   </div>
 </div>
 
@@ -344,6 +321,80 @@ input:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0
 </div>
 
 </div><!-- end landing -->
+
+<!-- ═══════════ PRIVACY PAGE ═══════════ -->
+<div id="privacy-page" style="display:none;">
+
+<div class="landing-top">
+  <div class="wiz-brand" onclick="goToLanding()" style="cursor:pointer;">
+    <div class="wiz-brand-mark"></div>
+    <div class="wiz-brand-text">
+      <div class="wiz-brand-sub">Green Industrial Areas</div>
+      <div class="wiz-brand-main">Screening Tool</div>
+    </div>
+  </div>
+</div>
+
+<div class="landing-body">
+  <div class="landing-intro">
+    <h2 class="landing-intro-title">Privacy Notice</h2>
+
+    <h4>1. General Information</h4>
+    <p>This website is designed to provide information without collecting or processing personal data. We take the protection of your privacy seriously and aim to minimize any data processing to the greatest extent possible.</p>
+
+    <h4>2. No Data Collection or Storage</h4>
+    <p>When using this website:</p>
+    <ul>
+      <li>No personal data is collected, processed, or stored by the website operator.</li>
+      <li>No user accounts, tracking tools, analytics services, or cookies are used.</li>
+      <li>No server-side logging or profiling of users takes place.</li>
+    </ul>
+    <p>All information displayed and any interactions remain entirely within your web browser.</p>
+
+    <h4>3. Local Storage in Your Browser</h4>
+    <p>Any data generated while using this website (if applicable) is stored exclusively in your local web browser (e.g. via local storage or session storage).</p>
+    <ul>
+      <li>This data is not transmitted to the website operator or any third party.</li>
+      <li>You can delete this data at any time via your browser settings (delete cache).</li>
+    </ul>
+
+    <h4>4. Contact via Email Link</h4>
+    <p>This website provides a link that allows you to contact a project partner via email.</p>
+    <ul>
+      <li>Clicking the link will open your default email client.</li>
+      <li>Any data you include in your email (e.g. your name, email address, message content) is transmitted solely via your email provider.</li>
+      <li>The website itself does not process, store, or have access to this data.</li>
+    </ul>
+    <p>Please note that communication via email may involve data processing by your email service provider.</p>
+
+    <h4>5. Third-Party Services</h4>
+    <p>This website does not integrate any third-party services such as:</p>
+    <ul>
+      <li>Analytics tools</li>
+      <li>External tracking technologies</li>
+      <li>Embedded content from external platforms</li>
+    </ul>
+
+    <h4>6. Your Rights</h4>
+    <p>As no personal data is processed by this website, there is generally no data subject processing in the sense of applicable data protection laws (e.g. GDPR). However, if you contact a project partner via email, your rights regarding personal data processing will be governed by the privacy policies of your email provider and the recipient.</p>
+
+    <h4>7. Changes to This Privacy Notice</h4>
+    <p>This privacy notice may be updated if the functionality of the website changes.</p>
+
+    <h4>8. Contact</h4>
+    <p>If you have any questions regarding this privacy notice, please contact the project partner using the email option provided on this website.</p>
+  </div>
+
+  <div class="landing-cta">
+    <button class="btn-landing-start" onclick="goToLanding()">Back to Introduction</button>
+  </div>
+</div>
+
+<div class="gia-logo-wiz">
+  <img src="GreenIndustrialAreas_Logo-Standard.svg" alt="Green Industrial Areas — Interreg Baltic Sea Region">
+</div>
+
+</div><!-- end privacy-page -->
 
 <!-- ═══════════ CONTACTS PAGE ═══════════ -->
 <div id="contacts" style="display:none;">
@@ -1186,7 +1237,14 @@ function goToLanding(){
   document.getElementById('wizard').style.display='none';
   document.getElementById('results').style.display='none';
   document.getElementById('contacts').style.display='none';
+  document.getElementById('privacy-page').style.display='none';
   document.getElementById('landing').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function showPrivacy(){
+  document.getElementById('landing').style.display='none';
+  document.getElementById('privacy-page').style.display='block';
   window.scrollTo(0,0);
 }
 

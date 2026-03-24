@@ -1179,14 +1179,13 @@ async function downloadPDF(){
     if(isMobile&&oppContainer){
       oppContainer.style.width='';oppContainer.style.height='';
       charts['r-opp-radar']?.options&&(charts['r-opp-radar'].options.layout.padding={top:10,bottom:10,left:10,right:10});
-      charts['r-opp-radar']?.resize();
     }
     if(isMobile&&rdContainer){
       rdContainer.style.width='';rdContainer.style.height='';
       charts['r-rd-radar']?.options&&(charts['r-rd-radar'].options.layout.padding={top:10,bottom:10,left:70,right:70});
-      charts['r-rd-radar']?.resize();
     }
-    // Restore chart resolution
+    // Wait for browser reflow before resizing charts
+    await new Promise(r=>setTimeout(r,50));
     Object.values(charts).forEach(c=>{c.options.devicePixelRatio=window.devicePixelRatio||1;c.resize();});
     document.body.classList.remove('pdf-mode');
     if(pdfLogo)pdfLogo.style.display='none';

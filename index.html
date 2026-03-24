@@ -1114,7 +1114,7 @@ function rRD(){
   charts['r-rd-radar']=new Chart(document.getElementById('r-rd-radar').getContext('2d'),{
     type:'radar',
     data:{labels:RD_S,datasets:[{label:'Readiness',data:vals,borderColor:'#052B63',backgroundColor:'rgba(5,43,99,.12)',pointBackgroundColor:vals.map(v=>col(v)),pointBorderColor:'white',pointBorderWidth:1.5,borderWidth:2,pointRadius:6,pointHoverRadius:8}]},
-    options:{responsive:true,maintainAspectRatio:false,layout:{padding:window.innerWidth<680?{top:10,bottom:10,left:40,right:40}:{top:20,bottom:20,left:100,right:100}},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:window.innerWidth<680?{top:10,bottom:10,left:70,right:70}:{top:20,bottom:20,left:100,right:100}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>RD_L[ctx.raw-1]||''}}},
       scales:{r:{min:0,max:5,ticks:{display:false,stepSize:1},pointLabels:{font:{size:10}},grid:{color:'#eee'},angleLines:{color:'#eee'}}}}
   });
@@ -1140,12 +1140,21 @@ async function downloadPDF(){
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
     const pgW=pdf.internal.pageSize.getWidth();
+    const isMobile=window.innerWidth<680;
+    const rdContainer=document.getElementById('r-rd-radar')?.closest('.ch460');
     const pageIds=['pdf-p1','pdf-p1-b','pdf-p2','pdf-p3'];
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
       if(actions&&el.contains(actions))actions.style.visibility='hidden';
       if(btnNew&&el.contains(btnNew))btnNew.style.visibility='hidden';
       if(btnEdit&&el.contains(btnEdit))btnEdit.style.visibility='hidden';
+      // On mobile, expand RD radar container to desktop size before capture
+      if(isMobile&&rdContainer&&el.contains(rdContainer)){
+        rdContainer.style.width='760px';rdContainer.style.height='460px';
+        charts['r-rd-radar']?.options&&(charts['r-rd-radar'].options.layout.padding={top:20,bottom:20,left:100,right:100});
+        charts['r-rd-radar']?.resize();
+        await new Promise(r=>setTimeout(r,80));
+      }
       const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false,windowWidth:1200});
       if(actions&&el.contains(actions))actions.style.visibility='visible';
       if(btnNew&&el.contains(btnNew))btnNew.style.visibility='visible';
@@ -1159,6 +1168,12 @@ async function downloadPDF(){
     const org=document.getElementById('f-org').value.trim()||'report';
     pdf.save(`green-screening-${org.replace(/\s+/g,'-').toLowerCase()}.pdf`);
   }finally{
+    // Restore RD radar container on mobile
+    if(isMobile&&rdContainer){
+      rdContainer.style.width='';rdContainer.style.height='';
+      charts['r-rd-radar']?.options&&(charts['r-rd-radar'].options.layout.padding={top:10,bottom:10,left:70,right:70});
+      charts['r-rd-radar']?.resize();
+    }
     // Restore chart resolution
     Object.values(charts).forEach(c=>{c.options.devicePixelRatio=window.devicePixelRatio||1;c.resize();});
     document.body.classList.remove('pdf-mode');

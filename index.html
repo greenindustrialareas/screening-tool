@@ -1114,7 +1114,7 @@ function rRD(){
   charts['r-rd-radar']=new Chart(document.getElementById('r-rd-radar').getContext('2d'),{
     type:'radar',
     data:{labels:RD_S,datasets:[{label:'Readiness',data:vals,borderColor:'#052B63',backgroundColor:'rgba(5,43,99,.12)',pointBackgroundColor:vals.map(v=>col(v)),pointBorderColor:'white',pointBorderWidth:1.5,borderWidth:2,pointRadius:6,pointHoverRadius:8}]},
-    options:{responsive:true,maintainAspectRatio:false,layout:{padding:window.innerWidth<680?{top:10,bottom:10,left:10,right:10}:{top:20,bottom:20,left:100,right:100}},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:window.innerWidth<680?{top:10,bottom:10,left:40,right:10}:{top:20,bottom:20,left:100,right:100}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>RD_L[ctx.raw-1]||''}}},
       scales:{r:{min:0,max:5,ticks:{display:false,stepSize:1},pointLabels:{font:{size:10}},grid:{color:'#eee'},angleLines:{color:'#eee'}}}}
   });

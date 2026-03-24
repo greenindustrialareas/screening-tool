@@ -1178,15 +1178,17 @@ async function downloadPDF(){
     // Restore radar containers on mobile
     if(isMobile&&oppContainer){
       oppContainer.style.width='';oppContainer.style.height='';
-      charts['r-opp-radar']?.options&&(charts['r-opp-radar'].options.layout.padding={top:10,bottom:10,left:10,right:10});
+      if(charts['r-opp-radar']){charts['r-opp-radar'].options.layout.padding={top:10,bottom:10,left:10,right:10};}
     }
     if(isMobile&&rdContainer){
       rdContainer.style.width='';rdContainer.style.height='';
-      charts['r-rd-radar']?.options&&(charts['r-rd-radar'].options.layout.padding={top:10,bottom:10,left:70,right:70});
+      if(charts['r-rd-radar']){charts['r-rd-radar'].options.layout.padding={top:10,bottom:10,left:70,right:70};}
     }
-    // Wait for browser reflow before resizing charts
-    await new Promise(r=>setTimeout(r,50));
-    Object.values(charts).forEach(c=>{c.options.devicePixelRatio=window.devicePixelRatio||1;c.resize();});
+    // Restore chart resolution
+    Object.values(charts).forEach(c=>{c.options.devicePixelRatio=window.devicePixelRatio||1;});
+    // Force reflow then resize via window resize event
+    await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+    window.dispatchEvent(new Event('resize'));
     document.body.classList.remove('pdf-mode');
     if(pdfLogo)pdfLogo.style.display='none';
     if(screenLogo)screenLogo.style.display='';

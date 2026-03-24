@@ -1145,7 +1145,7 @@ async function downloadPDF(){
       if(actions&&el.contains(actions))actions.style.visibility='hidden';
       if(btnNew&&el.contains(btnNew))btnNew.style.visibility='hidden';
       if(btnEdit&&el.contains(btnEdit))btnEdit.style.visibility='hidden';
-      const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+      const canvas=await html2canvas(el,{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false,windowWidth:1200});
       if(actions&&el.contains(actions))actions.style.visibility='visible';
       if(btnNew&&el.contains(btnNew))btnNew.style.visibility='visible';
       if(btnEdit&&el.contains(btnEdit))btnEdit.style.visibility='visible';

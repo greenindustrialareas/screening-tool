@@ -1136,13 +1136,13 @@ async function downloadPDF(){
   // Boost chart resolution for PDF capture
   const chartDpr=4;
   Object.values(charts).forEach(c=>{c.options.devicePixelRatio=chartDpr;c.resize();});
+  const isMobile=window.innerWidth<680;
+  const rdContainer=document.getElementById('r-rd-radar')?.closest('.ch460');
+  const oppContainer=document.getElementById('r-opp-radar')?.closest('.ch460');
   try{
     const {jsPDF}=window.jspdf;
     const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
     const pgW=pdf.internal.pageSize.getWidth();
-    const isMobile=window.innerWidth<680;
-    const rdContainer=document.getElementById('r-rd-radar')?.closest('.ch460');
-    const oppContainer=document.getElementById('r-opp-radar')?.closest('.ch460');
     const pageIds=['pdf-p1','pdf-p1-b','pdf-p2','pdf-p3'];
     for(let i=0;i<pageIds.length;i++){
       const el=document.getElementById(pageIds[i]);
